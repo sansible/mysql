@@ -1,0 +1,11 @@
+---
+
+- name: Ensure MySQL server and supporting packages
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - "mysql-server-{{ mysql.version }}"
+    - python-mysqldb

@@ -1,0 +1,6 @@
+---
+
+mysql:
+  root_user: root
+  root_password: P4ssword!
+  version: 5.5
