@@ -16,19 +16,21 @@
     - name: Assert mysql version
       assert:
         that:
-          - "'mysql  Ver 14.14 Distrib 5.5.50' in mysql_version.stdout"
+          - "'{{ mysql.version }}' in mysql_version.stdout"
       tags:
         - assert
 
-    - name: MySQL should be running
+    - name: MySQL should already be started
       become: yes
-      shell: service mysql status | grep "start/running"
-      args:
-        warn: no
+      service:
+        name: mysql
+        state: started
+      register: mysql_start_check
+      failed_when: mysql_start_check.changed
       tags:
         - assert
 
-    - name: Wait for MySQL port
+    - name: Check for MySQL port
       wait_for:
         port: 3306
         state: started
