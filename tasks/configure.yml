@@ -6,24 +6,24 @@
     path: /etc/mysql/conf.d/custom.cnf
   register: custom_cnf
 
-- name: Remove anonymous user
-  mysql_user:
-    login_host: localhost
-    login_user: "{{ mysql.root_user }}"
-    login_password: ""
-    name: ""
-    state: absent
-  when: not custom_cnf.stat.exists
-
 - name: Configure local MySQL root user password
   become: yes
   mysql_user:
     login_host: localhost
     login_user: "{{ mysql.root_user }}"
     login_password: ""
-    name: root
+    name: "{{ mysql.root_user }}"
     password: "{{ mysql.root_password }}"
     state: present
+  when: not custom_cnf.stat.exists
+
+- name: Remove anonymous user
+  mysql_user:
+    login_host: localhost
+    login_user: "{{ mysql.root_user }}"
+    login_password: "{{ mysql.root_password }}"
+    name: ""
+    state: absent
   when: not custom_cnf.stat.exists
 
 - name: Configure cusom MySQL client options
