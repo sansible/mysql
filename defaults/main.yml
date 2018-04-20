@@ -1,6 +1,5 @@
 ---
 
-mysql:
-  root_user: root
-  root_password: P4ssword!
-  version: 5.5
+sansible_mysql_root_password: P4ssword!
+sansible_mysql_root_user: root
+sansible_mysql_version: 5.5

@@ -10,21 +10,25 @@
   become: yes
   mysql_user:
     login_host: localhost
-    login_user: "{{ mysql.root_user }}"
+    login_user: "{{ sansible_mysql_root_user }}"
     login_password: ""
-    name: "{{ mysql.root_user }}"
-    password: "{{ mysql.root_password }}"
+    name: "{{ sansible_mysql_root_user }}"
+    password: "{{ sansible_mysql_root_password }}"
     state: present
-  when: not custom_cnf.stat.exists
+  when:
+    - not custom_cnf.stat.exists
+    - "ansible_virtualization_type != 'docker'"
 
 - name: Remove anonymous user
   mysql_user:
     login_host: localhost
-    login_user: "{{ mysql.root_user }}"
-    login_password: "{{ mysql.root_password }}"
+    login_password: ""
+    login_user: "{{ sansible_mysql_root_user }}"
     name: ""
     state: absent
-  when: not custom_cnf.stat.exists
+  when:
+    - not custom_cnf.stat.exists
+    - "ansible_virtualization_type != 'docker'"
 
 - name: Configure cusom MySQL client options
   become: yes
