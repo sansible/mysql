@@ -8,7 +8,7 @@ Develop: [![Build Status](https://travis-ci.org/sansible/mysql.svg?branch=develo
 * [Tags](#tags)
 * [Examples](#examples)
 
-This roles installs the Mysql Server, the setup is very basic and is really only meant 
+This roles installs the Mysql Server, the setup is very basic and is really only meant
 local MySQL testing in VMs.
 
 
@@ -44,10 +44,10 @@ and run `ansible-galaxy install -p ./roles -r roles.yml`
 
 ## Tags
 
-This role uses one tag: **build** 
+This role uses one tag: **build**
 
 * `build` - Installs Mysql and all it's dependencies.
-* `configure` - Configures mysql.
+* `configure` - Configures mysql
 
 
 
@@ -85,7 +85,6 @@ Setup Mysql with root user and password:
 
   roles:
     - role: sansible.mysql
-      mysql:
-        root_user: different_root_user
-        root_password: secure_password
+      sansible_mysql_root_user: different_root_user
+      sansible_mysql_root_password: secure_password
 ```

@@ -5,7 +5,6 @@
   apt:
     name: "{{ item }}"
     state: present
-    update_cache: yes
   with_items:
-    - "mysql-server-{{ mysql.version }}"
+    - "mysql-server={{ sansible_mysql_version }}"
     - python-mysqldb
